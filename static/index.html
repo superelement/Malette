@@ -20,6 +20,16 @@
       ga('send', 'pageview');
     </script>
   </head>
-  <body></body>
-  <script src="main.js"></script>
+  <body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <polygon id="cross" stroke="none" points="10 0.311667602 9.68882237 0 5 4.68851057 0.31148943 0 0 0.311667602 4.68851057 5.00013363 0 9.6886442 0.31148943 10.0004454 5 5.31131126 9.68882237 10.0004454 10 9.6886442 5.31148943 5.00013363"></polygon>
+    </svg>
+    <div id="color-picker"></div>
+    <script src="main.js"></script>
+    <script>
+      window.malette.init('color-picker', 4, colors => {
+        console.log(colors);
+      });
+    </script>
+  </body>
 </html>

@@ -14,7 +14,7 @@ export default () => {
     `))
     .then(Draw($toast));
     timer = setTimeout(() => $toast.innerHTML = '', 3000);
-    ga('send', 'event', 'color', 'copied', hex);
+    // ga('send', 'event', 'color', 'copied', hex);
   });
 
   return $toast;

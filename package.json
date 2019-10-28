@@ -17,17 +17,19 @@
     "babel-preset-es2015-rollup": "^3.0.0",
     "http-server-spa": "^1.2.0",
     "postcss-nested": "^1.0.0",
-    "rollup": "^0.36.3",
+    "rollup": "0.68.2",
     "rollup-plugin-babel": "^2.6.1",
     "rollup-plugin-commonjs": "^5.0.5",
     "rollup-plugin-eslint": "^3.0.0",
-    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-postcss": "^0.2.0",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-watch": "^2.5.0"
   },
   "dependencies": {
     "clipboard": "^1.5.15",
+    "postcss-get-sass-variables": "^1.1.0",
+    "postcss-simple-vars": "^5.0.2",
     "whatwg-fetch": "^2.0.1"
   },
   "description": "A color picker tool for the google material design palette",

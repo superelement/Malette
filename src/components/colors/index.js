@@ -9,21 +9,21 @@ import './style.scss';
 // }
 
 const action = {
-  picked(e) {
-    if (e.target.nodeName !== 'HEX-') {
-      Publish('color/picked', [this.data]);
-      ga('send', 'event', 'color', 'picked', `${this.data.base.replace(' ','-')}-${this.data.shade}`);
-    }
+  picked() {
+    // if (e.target.nodeName !== 'HEX-') {
+    Publish('color/picked', [this.data]);
+      // ga('send', 'event', 'color', 'picked', `${this.data.base.replace(' ','-')}-${this.data.shade}`);
+    // }
   },
   hovered() { Publish('color/hovered', [this.data]); },
 };
 
-export default () => {
+export default (colorsPerRow) => {
   const $colors = document.createElement('colors-');
 
   Fetch('colors.json')
   .then(Node(({base, shade, hex, text}) => `
-    <color- ${text} style='background-color:#${hex}'>
+    <color- ${text} style='background-color:#${hex}; max-width: ${100 / colorsPerRow}%'>
       <div>
         <name->${base.replace(' ','-')}-${shade}</name->
         <hex->#${hex}</hex->

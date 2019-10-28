@@ -1,16 +1,21 @@
+
 swatch- {
-  position: fixed;
-  right: 0;
-  top: 0;
+  $normalTextClr: rgba(255, 255, 255, 0.7);
+  $darkTextClr: rgba(0, 0, 0, 0.87);
+  $darkStrongTextClr: #000;
+  $lightTextClr: rgba(255, 255, 255, 0.87);
+  $lightStrongTextClr: #fff;
+
   display: flex;
-  height: 100vh;
-  width: 360px;
+  width: 40%;
+  max-width: 300px;
   flex-direction: column;
   border: 2rem solid #fff;
   box-shadow: 0 0 1rem rgba(0,0,0,0.62);
   z-index: 2;
   transition: border 500ms, background 300ms;
 
+  /*
   @media (orientation: portrait) {
     width: 300px;
     transform: translateX(230px);
@@ -27,7 +32,7 @@ swatch- {
         opacity: 1;
       }
     }
-  }
+  }*/
 
   &:empty {
     background-color: #e51c23;
@@ -46,6 +51,10 @@ swatch- {
 
     *+* { margin-top: .25rem; }
 
+    name-, hex- {
+      user-select: none;
+    }
+
     name- {
       font-size: 1rem;
       font-weight: bold;
@@ -55,17 +64,19 @@ swatch- {
     hex- {
       font-size: .618rem;
       animation: fadeIn 1000ms ease both;
+      /*
       &:hover {
         text-decoration: underline;
         cursor: pointer;
       }
+      */
     }
 
-    &[normal-text] { color: rgba(255, 255, 255, 0.7); }
-    &[dark-text] { color: rgba(0, 0, 0, 0.87); }
-    &[dark-strong-text] { color: #000; }
-    &[light-text] { color: rgba(255, 255, 255, 0.87); }
-    &[light-strong-text] { color: #fff; }
+    &[normal-text] { color: $normalTextClr; }
+    &[dark-text] { color: $darkTextClr; }
+    &[dark-strong-text] { color: $darkStrongTextClr; }
+    &[light-text] { color: $lightTextClr; }
+    &[light-strong-text] { color: $lightStrongTextClr; }
 
     &.remove {
       animation: flexShrink 300ms ease both;
@@ -74,6 +85,125 @@ swatch- {
         animation: fadeOut 300ms ease both;
       }
     }
+    
+
+    .cross-btn {
+      border: 0;
+      outline: none;
+      padding: 6px;
+      background: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      cursor: pointer;
+      
+      .cross-icon-svg {
+        width: 40px;
+      }
+      .cross-icon {
+        font-size: 40px;
+        line-height: 1;
+      }
+    }
+
+    &[normal-text] {
+      .cross-icon-svg {
+        fill: $normalTextClr;
+      }
+      .cross-icon {
+        color: $normalTextClr;
+      }
+
+      .cross-btn {
+        &:hover, &:focus {
+          .cross-icon-svg {
+            fill: $darkTextClr;
+          }
+          .cross-icon {
+            color: $darkTextClr;
+          }
+        }
+      }
+    }
+
+    &[dark-text] {
+      .cross-icon-svg {
+        fill: $darkTextClr;
+      }
+      .cross-icon {
+        color: $darkTextClr;
+      }
+      
+      .cross-btn {
+        &:hover, &:focus {
+          .cross-icon-svg {
+            fill: $lightTextClr;
+          }
+          .cross-icon {
+            color: $lightTextClr;
+          }
+        }
+      }
+    }
+
+    &[dark-strong-text] {
+      .cross-icon-svg {
+        fill: $darkStrongTextClr;
+      }
+      .cross-icon {
+        color: $darkStrongTextClr;
+      }
+      
+      .cross-btn {
+        &:hover, &:focus {
+          .cross-icon-svg {
+            fill: $lightTextClr;
+          }
+          .cross-icon {
+            color: $lightTextClr;
+          }
+        }
+      }
+    }
+
+    &[light-text] {
+      .cross-icon-svg {
+        fill: $lightTextClr;
+      }
+      .cross-icon {
+        color: $lightTextClr;
+      }
+      &:hover, &:focus {
+        .cross-icon-svg {
+          fill: $darkTextClr;
+        }
+        .cross-icon {
+          color: $darkTextClr;
+        }
+      }
+    }
+
+    &[light-strong-text] {
+      .cross-icon-svg {
+        fill: $lightStrongTextClr;
+      }
+      .cross-icon {
+        color: $lightStrongTextClr;
+      }
+      
+      .cross-btn {
+        &:hover, &:focus {
+          .cross-icon-svg {
+            fill: $darkTextClr;
+          }
+          .cross-icon {
+            color: $darkTextClr;
+          }
+        }
+      }
+    }
+
   }
 }
 

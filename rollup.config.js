@@ -8,6 +8,7 @@ import postcss from 'rollup-plugin-postcss';
 
 // PostCSS plugins
 import nested from 'postcss-nested';
+import simpleVars from 'postcss-simple-vars';
 
 export default {
   entry: 'src/main.js',
@@ -20,7 +21,10 @@ export default {
   },
   plugins: [
     postcss({
-      plugins: [nested()],
+      plugins: [
+        nested(),
+        simpleVars({ silent: true })
+      ],
       extensions: ['.scss'],
     }),
     resolve({

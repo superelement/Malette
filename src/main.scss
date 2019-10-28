@@ -1,15 +1,18 @@
-body,
-body * {
-  display: block;
-  flex: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
+#color-picker,
+#color-picker * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
-body {
+#color-picker {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
+  
+  .malette-cont {
+    width: 100%;
+    height: inherit;
+    position: relative;
+    max-height: 500px;
+    display: flex;
+  }
 }

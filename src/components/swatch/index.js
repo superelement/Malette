@@ -1,8 +1,10 @@
-import { Subscribe, Fetch, Node, Draw } from '../../xs';
+import { Subscribe, Fetch, Node, Draw, Publish } from '../../xs';
 import './style.scss';
 
 export default () => {
   const $swatch = document.createElement('swatch-');
+  const maxColorCount = 2;
+  const useSVG = !!document.getElementById('malette-icons');
   let touchDownX;
 
   const removeColor = e => {
@@ -11,9 +13,12 @@ export default () => {
   };
 
   $swatch.addEventListener('click', (e) => {
-    if (e.target && e.target.nodeName == 'COLOR-') {
-      e.target.classList.add('remove');
-      e.target.addEventListener('animationend', removeColor);
+    if (e.target.classList.contains('cross-btn') || e.target.closest('.cross-btn')) {
+      const root = e.target.closest('color-');
+      const hexValue = root.querySelector('hex-').textContent.trim().replace('#', '');
+      root.classList.add('remove');
+      root.addEventListener('animationend', removeColor);
+      Publish('color/deselected', [hexValue]);
     }
   });
 
@@ -51,12 +56,22 @@ export default () => {
     const exists = colors.find(x =>
       x.querySelector('hex-').textContent === `#${color.hex}`
     );
-    if(!exists && colors.length < 6) {
+    
+    if(!exists && colors.length < maxColorCount) {
+      Publish('color/selected', [color]);
+
       Fetch([color])
       .then(Node(({base, shade, hex, text}) => `
         <color- ${text} style='background-color:#${hex}'>
           <name->${base.replace(' ','-')}-${shade}</name->
           <hex->#${hex}</hex->
+          <button type="button" class="cross-btn ${useSVG ? 'is-svg' : ''}">
+            ${
+              useSVG ?
+                '<svg viewBox="0 0 10 10" class="cross-icon-svg"><use href="#cross" ></svg>' : 
+                '<span class="mdi mdi-close cross-icon"></span>'
+            }
+          </button>
         </color->
       `))
       .then(Draw($swatch));
