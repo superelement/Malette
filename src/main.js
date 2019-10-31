@@ -1,7 +1,7 @@
 import './main.scss';
 import 'whatwg-fetch';
 
-// import { Publish } from './xs';
+import { Publish, CleanUp } from './xs';
 // import Clipboard from 'clipboard';
 
 import ColorList from './components/colors';
@@ -15,11 +15,13 @@ import { Subscribe } from './xs';
 //   navigator.serviceWorker.register('/sw.js');
 // }
 
+let $target;
+
 window.malette = window.malette || {};
 window.malette.init = ((id = 'color-picker', colorsPerRow = 4, colorChangedHandler, skipCrossIcon) => {
   // const $body = document.body;
   // const $head = document.head;
-  const $target = document.getElementById(id);
+  $target = document.getElementById(id);
 
   if ($target) {
 
@@ -69,3 +71,13 @@ window.malette.init = ((id = 'color-picker', colorsPerRow = 4, colorChangedHandl
   // );
 });
 
+window.malette.updateColorsPerRow = (colorsPerRow) => {
+  Publish('color/per-row-count', [$target.querySelector('colors-'), colorsPerRow]);
+};
+
+window.malette.destroy = () => {
+  CleanUp();
+  $target.innerHTML = '';
+  // @todo remove #malette-icons svg
+};
+ 

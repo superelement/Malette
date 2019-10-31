@@ -1,4 +1,5 @@
-const ev = {};
+let ev = {};
+const listeners = []; // {element,event,callback}
 
 export const Publish = function (topic, args) {
   const subs = ev[topic] || [];
@@ -28,8 +29,23 @@ export const Node = template => json =>
 export const Bind = selector => event => callback => xs =>
   xs.forEach(x =>
     [...x.querySelectorAll(selector)]
-    .forEach(y => y.addEventListener(event, callback.bind(x)))
+    .forEach(y => {
+      y.addEventListener(event, callback.bind(x));
+      listeners.push({element: y, event, callback});
+    })
   ) ? xs:xs;
+
+export const RegisterListener = (element, event, callback) => {
+  element.addEventListener(event, callback);
+  listeners.push({element, event, callback});
+};
 
 export const Draw = element => nodes =>
   nodes.forEach(x => element.appendChild(x));
+
+export const CleanUp = () => {
+  ev = {};
+  listeners.forEach(({element, event, callback}) => {
+    element.removeEventListener(event, callback);
+  });
+};

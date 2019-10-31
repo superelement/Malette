@@ -1,4 +1,4 @@
-import { Subscribe, Fetch, Node, Draw, Publish } from '../../xs';
+import { Subscribe, Fetch, Node, Draw, Publish, RegisterListener } from '../../xs';
 import './style.scss';
 
 export default () => {
@@ -12,7 +12,7 @@ export default () => {
     e.target.removeEventListener('animationend', removeColor);
   };
 
-  $swatch.addEventListener('click', (e) => {
+  RegisterListener($swatch, 'click', (e) => {
     if (e.target.classList.contains('cross-btn') || e.target.closest('.cross-btn')) {
       const root = e.target.closest('color-');
       const hexValue = root.querySelector('hex-').textContent.trim().replace('#', '');
@@ -22,11 +22,11 @@ export default () => {
     }
   });
 
-  $swatch.addEventListener('touchstart', (e) => {
+  RegisterListener($swatch, 'touchstart', (e) => {
     touchDownX = e.touches[0].clientX;
   });
 
-  $swatch.addEventListener('touchmove', (e) => {
+  RegisterListener($swatch, 'touchmove', (e) => {
     const movement = Math.abs(touchDownX - e.touches[0].clientX);
     if(movement > 30) {
       if(touchDownX > e.touches[0].clientX) $swatch.classList.add('open');
@@ -34,11 +34,11 @@ export default () => {
     }
   });
 
-  $swatch.addEventListener('mouseenter', () => {
+  RegisterListener($swatch, 'mouseenter', () => {
     $swatch.classList.add('open');
   });
 
-  $swatch.addEventListener('mouseleave', (e) => {
+  RegisterListener($swatch, 'mouseleave', (e) => {
     const $elem = e.toElement || e.relatedTarget;
     if($elem && $elem.nodeName !== 'DOWNLOAD-') {
       $swatch.classList.remove('open');

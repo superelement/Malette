@@ -1,4 +1,4 @@
-import { Fetch, Node, Bind, Draw, Publish } from '../../xs';
+import { Fetch, Node, Bind, Draw, Publish, Subscribe } from '../../xs';
 import './style.scss';
 
 // {
@@ -33,6 +33,14 @@ export default (colorsPerRow) => {
   .then(Bind('color-')('click')(action.picked))
   .then(Bind('color-')('mouseenter')(action.hovered))
   .then(Draw($colors));
+
+  Subscribe('color/per-row-count', (rootElement, colorsPerRow) => {
+    Array.from(
+      rootElement.querySelectorAll('color-')
+    ).forEach(el => {
+      el.style.maxWidth = `${100 / colorsPerRow}%`;
+    });
+  });
 
   return $colors;
 };
